@@ -1,0 +1,46 @@
+package com.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.dto.Dept;
+
+public class OracleMyBatisDAO {
+	public List<Dept> selectAll(SqlSession session) {
+		// TODO Auto-generated method stub
+		List<Dept> list = session.selectList("selectAll");
+		return list;
+	}
+
+	public int insert(SqlSession session, Dept dept) {
+		int num = session.insert("deptInsert", dept);
+		System.out.println("추가된 레코드 ==== " + num);
+		return num;
+	}
+
+	public void update(SqlSession session, Dept dept) {
+		// TODO Auto-generated method stub
+		int num = session.update("deptUpdate", dept);
+		System.out.println("업데이트 갯수 : " + num);
+	}
+
+	public void delete(SqlSession session, int i) {
+		// TODO Auto-generated method stub
+		int num = session.delete("deptDelete", i);
+		System.out.println("삭제된 갯수 : " + num);
+	}
+	
+	public Dept selectByDeptno(SqlSession session, int i) {
+		// TODO Auto-generated method stub
+		Dept d = session.selectOne("com.dept.DeptMapper.selectByDeptno", i);
+		// id가 중복될 경우 매퍼 이름으로 구분
+		return d;
+	}
+
+	public int deptRecordCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		int num = session.selectOne("deptRecordCount");
+		return num;
+	}
+}
